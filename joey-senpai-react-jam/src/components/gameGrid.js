@@ -1,6 +1,10 @@
+import Actor from './actor'
+
 function GameGrid() {
     return (
         <>
+            <div className='HelloWorld'><Actor /></div>
+            <h2>I too am a gamer</h2>
             <h1>I'm a gamer</h1>
             <div>
                 <span></span>
