@@ -4,14 +4,17 @@ import React from "react"
 function GameGrid() {
     console.log('Console says hi!')
     const [isPlayerOne, setPlayer] = React.useState("yes")
+    const [oneCurrentTop, setTop] = React.useState(0)
     console.log(isPlayerOne)
 
     function changeCharacter() {
+        // TODO Set up a state
         setPlayer("no")
     }
     
     function onUpArrowClick() {
         console.log("Up arrow click")
+        setTop(100)
         
     }
     function onLeftArrowClick() {
@@ -24,11 +27,12 @@ function GameGrid() {
     }
     function onBottomArrowClick() {
         console.log("Bottom arrow click")
+        setTop(0)
     }
 
     return (
         <>
-            <Actor />
+            <Actor top={oneCurrentTop}/>
             <h1>I'm a gamer</h1>
             <div>
                 <span></span>
