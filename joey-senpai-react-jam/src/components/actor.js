@@ -1,9 +1,11 @@
+import "../App.css"
+import cyborg from "../assets/cyborg-face.png"
+
 import React from "react"
 
-export default function Actor()
+export default function Actor() {
 
-{
     return (    
-            <h2>Hello World</h2>
+            <img src={cyborg} className="someCharacter" />
         )
     }
