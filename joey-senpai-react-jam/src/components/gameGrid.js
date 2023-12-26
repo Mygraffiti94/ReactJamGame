@@ -1,24 +1,24 @@
 import Actor from './actor'
 
 function GameGrid() {
+    console.log('Console says hi!')
     return (
         <>
-            <div className='HelloWorld'><Actor /></div>
-            <h2>I too am a gamer</h2>
+            <Actor />
             <h1>I'm a gamer</h1>
             <div>
                 <span></span>
-                <button>↑</button>
+                <button onClick={onUpArrowClick}>↑</button>
                 <span></span>
             </div>
             <div>
-                <button>←</button>
+                <button onClick={onLeftArrowClick}>←</button>
                 <button></button>
-                <button>→</button>
+                <button onClick={onRightArrowClick}>→</button>
             </div>
             <div>
                 <span></span>
-                <button>↓</button>
+                <button onClick={Actor.onBottomArrowClick}>↓</button>
                 <span></span>
             </div>
         </>
@@ -28,4 +28,15 @@ function GameGrid() {
 function onUpArrowClick() {
     
 }
+function onLeftArrowClick() {
+    
+}
+function onRightArrowClick() {
+    console.log("Sanity check")
+    
+}
+function onBottomArrowClick() {
+    console.log("testing how functions work in Javascript")
+}
+
 export default GameGrid;
