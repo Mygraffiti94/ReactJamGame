@@ -19,6 +19,7 @@ function GameController() {
                 <button>→</button>
                 <div></div>
                 <button>↓</button>
+                
             </div>
         </>
     );

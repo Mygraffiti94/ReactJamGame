@@ -1,0 +1,10 @@
+export const testLevel = [{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+                          {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}]
