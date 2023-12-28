@@ -9,7 +9,7 @@ function GameController(props) {
                 <button onClick={props.upClick}>↑</button>
                 <div></div>
                 <button onClick={props.leftClick}>←</button>
-                <button onClick={props.changeCharacter}> <Sprite image="https://pixijs.io/pixi-react/img/bunny.png"/>Change Character</button>
+                <button onClick={props.changeCharacter}>Change Character</button>
                 <button onClick={props.rightClick}>→</button>
                 <div></div>
                 <button onClick={props.downClick}>↓</button>

@@ -1,31 +1,12 @@
 import Actor from './actor'
 import React from "react"
 import './gameGrid.css';
-import { testLevel } from '../assets/mapData';
-import Board from './board';
 
 function GameGrid(props) {
-
-    const gridData = testLevel;
-    const gridArr = drawGrid();
-
-      const handleClick = (index) => {
-        console.log("Click! " + index);
-      };
-
-    function drawGrid() {
-        let arr = [];
-        for (let i = 0; i < 100; i++) {
-            arr.push(<div className="cell"></div>);
-        }
-
-        return arr;
-    }
-
-
+    const gridData = props.mapData[0];
     return (
         <>
-            <h1>I'm a gamer</h1>
+            <h1>Sokobros</h1>
             
             <div className="center">
                 <div className="interactable-grid">
@@ -39,14 +20,12 @@ function GameGrid(props) {
                                 return <div className="blue-block"></div>;
                             case "e_org":
                                 return <div className="orange-block"></div>;
+                            case "e_act":
+                                return <div> <Actor x={props.x} y={props.y}></Actor></div>
                             default:
                                 break;
                         }
                     })}
-                <Actor
-                    x={props.x}
-                    y={props.y}
-                />
                 </div>
             </div>
 
