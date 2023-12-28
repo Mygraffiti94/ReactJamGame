@@ -32,7 +32,7 @@ export default function Board() {
     }
 
     function onDownArrowClick() {
-        if (gameState.yCoord < 8) {
+        if (gameState.yCoord < 9) {
         setGameState(prevState => ({
             ...prevState,
             yCoord: prevState.yCoord + 1
@@ -41,7 +41,7 @@ export default function Board() {
         console.log("X: " + gameState.xCoord + " Y: " + gameState.yCoord);
     }
     function onRightArrowClick() {
-        if (gameState.xCoord < 8)
+        if (gameState.xCoord < 9)
         setGameState(prevState => ({
             ...prevState,
             xCoord: prevState.xCoord + 1
