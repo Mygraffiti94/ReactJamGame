@@ -25,55 +25,74 @@ export default function Board() {
     }
 
     function onUpArrowClick() {
-        if (gameState.playerIndex > 19 && collisionChecker(gameState.playerIndex, -10)) {
+        if (gameState.playerIndex > 19 && collisionChecker(gameState.playerIndex, -10, gameState.actorType)) {
             playerMovement(-10);
         }
     }
 
     function onDownArrowClick() {
-        if (gameState.playerIndex < 80 & collisionChecker(gameState.playerIndex, 10)) {
+        if (gameState.playerIndex < 80 & collisionChecker(gameState.playerIndex, 10, gameState.actorType)) {
             playerMovement(10);
         }
     }
     function onRightArrowClick() {
-        if (gameState.playerIndex % 10 !== 8 & collisionChecker(gameState.playerIndex, 1)) {
+        if (gameState.playerIndex % 10 !== 8 & collisionChecker(gameState.playerIndex, 1, gameState.actorType)) {
             playerMovement(1);
         }
     }
     function onLeftArrowClick() {
-        if (gameState.playerIndex % 10 !== 1 & collisionChecker(gameState.playerIndex, -1)) {
+        if (gameState.playerIndex % 10 !== 1 & collisionChecker(gameState.playerIndex, -1, gameState.actorType)) {
             playerMovement(-1);
         }
     }
 
-    function collisionChecker(index, direction) {
+    function collisionChecker(index, direction, type) {
+        console.log("CollisionChecker: " + index + " | " + direction + " | " + type + " | " + gameState.currentMapData[index+direction].type);
         switch (gameState.currentMapData[index + direction].type) {
             case "e_air":
                 return true;
             case "e_wal":
                 return false;
             case "e_blu":
-                if (gameState.actorType === "blue") {
+                if (type === "blue") {
                     return moveBlock(index, direction);
                 } else {
                     return false;
                 }
             case "e_org":
-                if (gameState.actorType === "orange") {
+                if (type === "orange") {
                     return moveBlock(index, direction);
                 } else {
                     return false;
             }
+            case "e_bgl":
+                if (type === "e_blu") {
+                    gameState.currentMapData[index+direction].type = "e_air";
+                }
+                return true;
+            case "e_ogl":
+                if (type === "e_org") {
+                    gameState.currentMapData[index+direction].type = "e_air";
+                }
+                return true;
         }
     }
 
     function moveBlock(index, direction) {
+        console.log("MoveBlock: " + index + " | " + direction);
         let blockIndex = index + direction;
-        if (collisionChecker(blockIndex, direction) === false) {
+        let nextIndex = blockIndex + direction;
+        let blockType = gameState.currentMapData[blockIndex].type;
+        if (collisionChecker(blockIndex, direction, blockType) === false) {
             return false;
         }
-        let blockType = gameState.currentMapData[blockIndex];
-        gameState.currentMapData[blockIndex + direction] = blockType;
+        // if ((blockType === "e_blu" && gameState.currentMapData[nextIndex].type === "e_bgl")
+        //     || (blockType === "e_org" && gameState.currentMapData[nextIndex].type === "e_ogl")) {
+        //     console.log("Clear!");
+        //     gameState.currentMapData[blockIndex] = "e_air";
+        // } else {
+        //     gameState.currentMapData[nextIndex] = blockType;
+        // }
         return true;
     }
 
