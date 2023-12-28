@@ -72,7 +72,7 @@ function GameGrid() {
                     {renderCell()}
                     {renderCell()}
                 </div>
-                <GameController></GameController>
+                
             </div>
         </>
     );

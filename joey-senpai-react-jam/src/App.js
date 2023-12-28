@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import GameGrid from './components/gameGrid';
+import Board from './components/board';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           Learn React with senpai
         </a>
       </header> */}
-    <GameGrid></GameGrid>
+      <Board />
     </div>
   );
 }
