@@ -18,61 +18,63 @@ export default function Board() {
     }
 
     function changeCharacter() {
-        console.log("Changed Character!");
+        if (gameState.actorType === "blue")
+            gameState.actorType = "orange";
+        else
+            gameState.actorType = "blue";
     }
 
     function onUpArrowClick() {
-        if (gameState.yCoord > 2) {
-            setGameState(prevState => ({
-                ...prevState,
-                yCoord: prevState.yCoord - 1
-            }));
-    }
-        console.log("On Index: " + gameState.playerIndex);
-        if (gameState.playerIndex > 19) {
-            gameState.currentMapData[gameState.playerIndex] = {type: "e_air"};
+        if (gameState.playerIndex > 19 && collisionChecker(gameState.playerIndex, -10)) {
             playerMovement(-10);
         }
-        console.log("X: " + gameState.xCoord + " Y: " + gameState.yCoord);
     }
 
     function onDownArrowClick() {
-        if (gameState.yCoord < 10) {
-            setGameState(prevState => ({
-                ...prevState,
-                yCoord: prevState.yCoord + 1
-            }));
-        }
-        console.log("On Index: " + gameState.playerIndex);
-        if (gameState.playerIndex < 90) {
+        if (gameState.playerIndex < 80 & collisionChecker(gameState.playerIndex, 10)) {
             playerMovement(10);
         }
-        console.log("X: " + gameState.xCoord + " Y: " + gameState.yCoord);
     }
     function onRightArrowClick() {
-        if (gameState.xCoord < 9)
-        setGameState(prevState => ({
-            ...prevState,
-            xCoord: prevState.xCoord + 1
-        }));
-        console.log("On Index: " + gameState.playerIndex);
-        if (gameState.playerIndex % 10 !== 8) {
+        if (gameState.playerIndex % 10 !== 8 & collisionChecker(gameState.playerIndex, 1)) {
             playerMovement(1);
         }
-        console.log("X: " + gameState.xCoord + " Y: " + gameState.yCoord);
     }
     function onLeftArrowClick() {
-        if (gameState.xCoord > 2) {
-        setGameState(prevState => ({
-            ...prevState,
-            xCoord: prevState.xCoord - 1
-        }));
-    }
-        console.log("On Index: " + gameState.playerIndex);
-        if (gameState.playerIndex % 10 !== 1) {
+        if (gameState.playerIndex % 10 !== 1 & collisionChecker(gameState.playerIndex, -1)) {
             playerMovement(-1);
         }
-        console.log("X: " + gameState.xCoord + " Y: " + gameState.yCoord);
+    }
+
+    function collisionChecker(index, direction) {
+        switch (gameState.currentMapData[index + direction].type) {
+            case "e_air":
+                return true;
+            case "e_wal":
+                return false;
+            case "e_blu":
+                if (gameState.actorType === "blue") {
+                    return moveBlock(index, direction);
+                } else {
+                    return false;
+                }
+            case "e_org":
+                if (gameState.actorType === "orange") {
+                    return moveBlock(index, direction);
+                } else {
+                    return false;
+            }
+        }
+    }
+
+    function moveBlock(index, direction) {
+        let blockIndex = index + direction;
+        if (collisionChecker(blockIndex, direction) === false) {
+            return false;
+        }
+        let blockType = gameState.currentMapData[blockIndex];
+        gameState.currentMapData[blockIndex + direction] = blockType;
+        return true;
     }
 
     function playerMovement(direction) {
@@ -87,18 +89,13 @@ export default function Board() {
     }
 
     useEffect(() => {
-        console.log("Use effect On Index: " + gameState.playerIndex);
-    
         if (gameState.playerIndex > 10) {
             gameState.currentMapData[gameState.prevIndex] = {type: "e_air"};
             gameState.currentMapData[gameState.playerIndex] = { type: "e_act" };
           }
-        console.log("Use effect X: " + gameState.xCoord + " Y: " + gameState.yCoord);
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
-      }, [gameState.xCoord,
-        gameState.yCoord,
-        gameState.playerIndex,
-        gameState.mapData,]); // useEffect will run after gameState changes
+      }, [gameState.playerIndex,
+        gameState.currentMapData,]); // useEffect will run after gameState changes
 
     return (
         <div>
