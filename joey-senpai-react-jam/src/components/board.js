@@ -5,10 +5,11 @@ import Actor from "./actor"
 import { testLevel } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 0, yCoord: 0, actorType: 'blue', playerIndex: 11, prevIndex: 11});
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'blue', playerIndex: 11, prevIndex: 11});
     // Merge below states into gameState
     const [playerOne, setPlayerOne] = useState({xCoord: 0, yCoord: 0, isActive: true})
     const [playerTwo, setPlayerTwo] = useState({xCoord: 0, yCoord: 0, isActive: false})
+    const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
     // TODO Set collision decisions
     const Sprite = () => {
         return (
@@ -83,8 +84,21 @@ export default function Board() {
         }))
         gameState.currentMapData[gameState.prevIndex] = {type: "e_air"};
         gameState.currentMapData[gameState.playerIndex] = {type: "e_act"};
-        console.log(JSON.stringify(gameState));
     }
+
+    useEffect(() => {
+        console.log("Use effect On Index: " + gameState.playerIndex);
+    
+        if (gameState.playerIndex > 10) {
+            gameState.currentMapData[gameState.prevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerIndex] = { type: "e_act" };
+          }
+        console.log("Use effect X: " + gameState.xCoord + " Y: " + gameState.yCoord);
+        setGridUpdateCounter((prevCounter) => prevCounter + 1);
+      }, [gameState.xCoord,
+        gameState.yCoord,
+        gameState.playerIndex,
+        gameState.mapData,]); // useEffect will run after gameState changes
 
     return (
         <div>

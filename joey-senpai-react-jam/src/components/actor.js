@@ -5,8 +5,7 @@ import React from "react"
 
 export default function Actor(props) {
     // game state?
-    // movement
-    console.log("In the player Sprite")
+    // movement    
 
     const style = {
         gridColumn: props.x,
