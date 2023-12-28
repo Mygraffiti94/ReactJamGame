@@ -1,5 +1,6 @@
 import "../App.css"
 import cyborg from "../assets/cyborg-face.png"
+import warlord from "../assets/warlord-helmet.png"
 
 import React from "react"
 
@@ -15,10 +16,17 @@ export default function Actor(props) {
         width: "25px",
         zIndex: 2,
     };
+    let image;
+    if (props.src === 1) {
+        image = cyborg;
+    }
+    else {
+        image = warlord
+    }
 
     return (   
         <>
-            <img src={cyborg} style={style} alt="Player One"/>
+            <img src={image} style={style} alt="Player One"/>
             </> 
         )
     }
