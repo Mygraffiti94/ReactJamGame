@@ -5,17 +5,11 @@ import Actor from "./actor"
 import { testLevel } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'blue', playerIndex: 11, prevIndex: 11});
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, actorType: 'blue', playerOne: {xCoord: 1, yCoord: 10,  playerIndex: 11, prevIndex: 11}, playerTwo: {xCoord: 2, yCoord: 10,  playerIndex: 12, prevIndex: 12}});
     // Merge below states into gameState
-    const [playerOne, setPlayerOne] = useState({xCoord: 0, yCoord: 0, isActive: true})
-    const [playerTwo, setPlayerTwo] = useState({xCoord: 0, yCoord: 0, isActive: false})
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
     // TODO Set collision decisions
-    const Sprite = () => {
-        return (
-            <Actor />
-        )
-    }
+
 
     function changeCharacter() {
         if (gameState.actorType === "blue")
@@ -25,25 +19,54 @@ export default function Board() {
     }
 
     function onUpArrowClick() {
-        if (gameState.playerIndex > 19 && collisionChecker(gameState.playerIndex, -10)) {
-            playerMovement(-10);
+        if (gameState.actorType === "blue") {
+            if (gameState.playerOne.playerIndex > 19 && collisionChecker(gameState.playerOne.playerIndex, -10)) {
+                playerMovement(-10);
+            }
+        }
+        else {
+            if (gameState.playerTwo.playerIndex > 19 && collisionChecker(gameState.playerTwo.playerIndex, -10)) {
+                playerMovement(-10);
+            }
         }
     }
 
     function onDownArrowClick() {
-        if (gameState.playerIndex < 80 & collisionChecker(gameState.playerIndex, 10)) {
-            playerMovement(10);
+        if (gameState.actorType === "blue") {
+            if (gameState.playerOne.playerIndex < 80 & collisionChecker(gameState.playerOne.playerIndex, 10)) {
+                playerMovement(10);
+            }
+        }
+        else {
+            if (gameState.playerTwo.playerIndex < 80 & collisionChecker(gameState.playerTwo.playerIndex, 10)) {
+                playerMovement(10);
+            }
+
         }
     }
     function onRightArrowClick() {
-        if (gameState.playerIndex % 10 !== 8 & collisionChecker(gameState.playerIndex, 1)) {
-            playerMovement(1);
+        if (gameState.actorType === "blue") {
+            if (gameState.playerOne.playerIndex % 10 !== 8 & collisionChecker(gameState.playerOne.playerIndex, 1)) {
+                playerMovement(1);
+            }
+        }
+        else {
+            if (gameState.playerTwo.playerIndex % 10 !== 8 & collisionChecker(gameState.playerTwo.playerIndex, 1)) {
+                playerMovement(1);
+            }
         }
     }
     function onLeftArrowClick() {
-        if (gameState.playerIndex % 10 !== 1 & collisionChecker(gameState.playerIndex, -1)) {
+    if (gameState.actorType === "blue") {
+        if (gameState.playerOne.playerIndex % 10 !== 1 & collisionChecker(gameState.playerOne.playerIndex, -1)) {
             playerMovement(-1);
         }
+    }
+    else {
+        if (gameState.playerTwo.playerIndex % 10 !== 1 & collisionChecker(gameState.playerTwo.playerIndex, -1)) {
+            playerMovement(-1);
+        }
+    }
     }
 
     function collisionChecker(index, direction) {
@@ -78,31 +101,49 @@ export default function Board() {
     }
 
     function playerMovement(direction) {
-        console.log("Moving player");
-        setGameState(prevState => ({
-            ...prevState,
-            prevIndex: prevState.playerIndex,
-            playerIndex: prevState.playerIndex + direction
-        }))
-        gameState.currentMapData[gameState.prevIndex] = {type: "e_air"};
-        gameState.currentMapData[gameState.playerIndex] = {type: "e_act"};
+        if (gameState.actorType === "blue") {
+            setGameState(prevState => ({
+                ...prevState,
+                playerOne: {
+                ...prevState.playerOne,
+                prevIndex: prevState.playerOne.playerIndex,
+                playerIndex: prevState.playerOne.playerIndex + direction
+                }
+            }))
+            console.log(gameState)
+            gameState.currentMapData[gameState.playerOne.prevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerOne.playerIndex] = {type: "e_act"};
+        }
+        else {
+            setGameState(prevState => ({
+                ...prevState,
+                playerTwo: {
+                ...prevState.playerTwo,
+                prevIndex: prevState.playerTwo.playerIndex,
+                playerIndex: prevState.playerTwo.playerIndex + direction
+                }
+            }))
+            console.log(gameState)
+            gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act"};
+        }
     }
 
     useEffect(() => {
-        if (gameState.playerIndex > 10) {
-            gameState.currentMapData[gameState.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerIndex] = { type: "e_act" };
+        if (gameState.playerOne.playerIndex > 10) {
+            gameState.currentMapData[gameState.playerOne.prevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerOne.playerIndex] = { type: "e_act" };
           }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
-      }, [gameState.playerIndex,
+      }, [gameState.playerOne.playerIndex,
         gameState.currentMapData,]); // useEffect will run after gameState changes
 
     return (
         <div>
             <GameGrid
-                x={gameState.xCoord}
-                y={gameState.yCoord}
-                playerIndex={gameState.playerIndex}
+                x={gameState.playerOne.xCoord}
+                y={gameState.playerOne.yCoord}
+                playerIndex={gameState.playerOne.playerIndex}
                 mapData={gameState.mapData}
             />
             <GameController 
