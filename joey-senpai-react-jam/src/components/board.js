@@ -125,17 +125,26 @@ export default function Board() {
             }))
             console.log(gameState)
             gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act"};
+            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act_two"};
         }
     }
 
     useEffect(() => {
+        if (gameState.actorType === 'blue') {
         if (gameState.playerOne.playerIndex > 10) {
             gameState.currentMapData[gameState.playerOne.prevIndex] = {type: "e_air"};
             gameState.currentMapData[gameState.playerOne.playerIndex] = { type: "e_act" };
           }
+        }
+        else {
+        if (gameState.playerTwo.playerIndex > 10) {
+            gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerTwo.playerIndex] = { type: "e_act_2" };
+          }
+        }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOne.playerIndex,
+        gameState.playerTwo.playerIndex,
         gameState.currentMapData,]); // useEffect will run after gameState changes
 
     return (
