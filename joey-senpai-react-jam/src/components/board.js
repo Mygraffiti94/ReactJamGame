@@ -125,7 +125,7 @@ export default function Board() {
             }))
             console.log(gameState)
             gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act_two"};
+            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act_2"};
         }
     }
 
