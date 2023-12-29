@@ -150,9 +150,12 @@ export default function Board() {
     return (
         <div>
             <GameGrid
-                x={gameState.playerOne.xCoord}
-                y={gameState.playerOne.yCoord}
-                playerIndex={gameState.playerOne.playerIndex}
+                playerOneX={gameState.playerOne.xCoord}
+                playerOneY={gameState.playerOne.yCoord}
+                playerOnePlayerIndex={gameState.playerOne.playerIndex}
+                playerTwoX={gameState.playerTwo.xCoord}
+                playerTwoY={gameState.playerTwo.yCoord}
+                playerTwoPlayerIndex={gameState.playerTwo.playerIndex}
                 mapData={gameState.mapData}
             />
             <GameController 

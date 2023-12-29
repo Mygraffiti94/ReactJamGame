@@ -21,9 +21,9 @@ function GameGrid(props) {
                             case "e_org":
                                 return <div className="orange-block"></div>;
                             case "e_act":
-                                return <div> <Actor x={props.x} y={props.y} src={1}></Actor></div>
+                                return <div> <Actor x={props.playerOneX} y={props.playerOneY} src={1}></Actor></div>
                             case "e_act_2":
-                                return <div> <Actor x={props.x} y={props.y} src={2}></Actor></div>
+                                return <div> <Actor x={props.playerTwoX} y={props.PlayerTwoY} src={2}></Actor></div>
                             default:
                                 break;
                         }
