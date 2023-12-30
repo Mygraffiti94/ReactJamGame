@@ -5,68 +5,40 @@ import Actor from "./actor"
 import { testLevel } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, actorType: 'blue', playerOne: {xCoord: 1, yCoord: 10,  playerIndex: 11, prevIndex: 11}, playerTwo: {xCoord: 2, yCoord: 10,  playerIndex: 12, prevIndex: 12}});
-    // Merge below states into gameState
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'blue', playerOneIndex: 11, playerOnePrevIndex: 11, playerTwoIndex: 18, playerTwoPrevIndex: 18});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
-    // TODO Set collision decisions
-
 
     function changeCharacter() {
-        if (gameState.actorType === "blue")
-            gameState.actorType = "orange";
+        if (gameState.actorType === "one")
+            gameState.actorType = "two";
         else
-            gameState.actorType = "blue";
+            gameState.actorType = "one";
     }
 
     function onUpArrowClick() {
-        if (gameState.actorType === "blue") {
-            if (gameState.playerOne.playerIndex > 19 && collisionChecker(gameState.playerOne.playerIndex, -10)) {
-                playerMovement(-10);
-            }
-        }
-        else {
-            if (gameState.playerTwo.playerIndex > 19 && collisionChecker(gameState.playerTwo.playerIndex, -10)) {
-                playerMovement(-10);
-            }
+        let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
+        if (gameState.playerOneIndex > 19 && collisionChecker(index, -10, gameState.actorType)) {
+            playerMovement(-10, gameState.actorType);
         }
     }
 
     function onDownArrowClick() {
-        if (gameState.actorType === "blue") {
-            if (gameState.playerOne.playerIndex < 80 & collisionChecker(gameState.playerOne.playerIndex, 10)) {
-                playerMovement(10);
-            }
-        }
-        else {
-            if (gameState.playerTwo.playerIndex < 80 & collisionChecker(gameState.playerTwo.playerIndex, 10)) {
-                playerMovement(10);
-            }
-
+        let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
+        if (gameState.playerOneIndex < 80 & collisionChecker(gameState.playerOneIndex, 10, gameState.actorType)) {
+            playerMovement(10, gameState.actorType);
         }
     }
     function onRightArrowClick() {
-        if (gameState.actorType === "blue") {
-            if (gameState.playerOne.playerIndex % 10 !== 8 & collisionChecker(gameState.playerOne.playerIndex, 1)) {
-                playerMovement(1);
-            }
-        }
-        else {
-            if (gameState.playerTwo.playerIndex % 10 !== 8 & collisionChecker(gameState.playerTwo.playerIndex, 1)) {
-                playerMovement(1);
-            }
+        let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
+        if (gameState.playerOneIndex % 10 !== 8 & collisionChecker(gameState.playerOneIndex, 1, gameState.actorType)) {
+            playerMovement(1, gameState.actorType);
         }
     }
     function onLeftArrowClick() {
-      if (gameState.actorType === "blue") {
-          if (gameState.playerOne.playerIndex % 10 !== 1 & collisionChecker(gameState.playerOne.playerIndex, -1)) {
-              playerMovement(-1);
-          }
-      }
-      else {
-          if (gameState.playerTwo.playerIndex % 10 !== 1 & collisionChecker(gameState.playerTwo.playerIndex, -1)) {
-              playerMovement(-1);
-          }
-      }
+        let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
+        if (gameState.playerOneIndex % 10 !== 1 & collisionChecker(gameState.playerOneIndex, -1, gameState.actorType)) {
+            playerMovement(-1, gameState.actorType);
+        }
     }
 
     function collisionChecker(index, direction, type) {
@@ -77,13 +49,13 @@ export default function Board() {
             case "e_wal":
                 return false;
             case "e_blu":
-                if (type === "blue") {
+                if (type === "one") {
                     return moveBlock(index, direction);
                 } else {
                     return false;
                 }
             case "e_org":
-                if (type === "orange") {
+                if (type === "two") {
                     return moveBlock(index, direction);
                 } else {
                     return false;
@@ -119,62 +91,42 @@ export default function Board() {
         return true;
     }
 
-    function playerMovement(direction) {
-        if (gameState.actorType === "blue") {
+    function playerMovement(direction, type) {
+        console.log("Moving player");
+        if (type === "one") {
             setGameState(prevState => ({
                 ...prevState,
-                playerOne: {
-                ...prevState.playerOne,
-                prevIndex: prevState.playerOne.playerIndex,
-                playerIndex: prevState.playerOne.playerIndex + direction
-                }
+                playerOnePrevIndex: prevState.playerOneIndex,
+                playerOneIndex: prevState.playerOneIndex + direction
             }))
-            console.log(gameState)
-            gameState.currentMapData[gameState.playerOne.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerOne.playerIndex] = {type: "e_act"};
-        }
-        else {
+            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+        } else {
             setGameState(prevState => ({
                 ...prevState,
-                playerTwo: {
-                ...prevState.playerTwo,
-                prevIndex: prevState.playerTwo.playerIndex,
-                playerIndex: prevState.playerTwo.playerIndex + direction
-                }
+                playerTwoPrevIndex: prevState.playerTwoIndex,
+                playerTwoIndex: prevState.playerTwoIndex + direction
             }))
-            console.log(gameState)
-            gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerTwo.playerIndex] = {type: "e_act_2"};
+            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_two"};            
         }
     }
 
     useEffect(() => {
-        if (gameState.actorType === 'blue') {
-        if (gameState.playerOne.playerIndex > 10) {
-            gameState.currentMapData[gameState.playerOne.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerOne.playerIndex] = { type: "e_act" };
+        if (gameState.playerOneIndex > 10) {
+            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };
           }
-        }
-        else {
-        if (gameState.playerTwo.playerIndex > 10) {
-            gameState.currentMapData[gameState.playerTwo.prevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerTwo.playerIndex] = { type: "e_act_2" };
-          }
-        }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
-      }, [gameState.playerOne.playerIndex,
-        gameState.playerTwo.playerIndex,
+      }, [gameState.playerOneIndex,
         gameState.currentMapData,]); // useEffect will run after gameState changes
 
     return (
         <div>
             <GameGrid
-                playerOneX={gameState.playerOne.xCoord}
-                playerOneY={gameState.playerOne.yCoord}
-                playerOnePlayerIndex={gameState.playerOne.playerIndex}
-                playerTwoX={gameState.playerTwo.xCoord}
-                playerTwoY={gameState.playerTwo.yCoord}
-                playerTwoPlayerIndex={gameState.playerTwo.playerIndex}
+                x={gameState.xCoord}
+                y={gameState.yCoord}
+                playerIndex={gameState.playerOneIndex}
                 mapData={gameState.mapData}
             />
             <GameController 
