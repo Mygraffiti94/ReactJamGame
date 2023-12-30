@@ -25,6 +25,7 @@ function GameGrid(props) {
                             case "e_ogl":
                                 return <div className="orange-goal"></div>;
                             case "e_one":
+                                return <div> <Actor src={1}></Actor></div>
                             case "e_two":
                                 return <div> <Actor></Actor></div>
                             default:

@@ -5,7 +5,7 @@ import Actor from "./actor"
 import { testLevel } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'blue', playerOneIndex: 11, playerOnePrevIndex: 11, playerTwoIndex: 18, playerTwoPrevIndex: 18});
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air"});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -17,26 +17,26 @@ export default function Board() {
 
     function onUpArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (gameState.playerOneIndex > 19 && collisionChecker(index, -10, gameState.actorType)) {
+        if (index > 19 && collisionChecker(index, -10, gameState.actorType)) {
             playerMovement(-10, gameState.actorType);
         }
     }
 
     function onDownArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (gameState.playerOneIndex < 80 & collisionChecker(gameState.playerOneIndex, 10, gameState.actorType)) {
+        if (index < 80 & collisionChecker(index, 10, gameState.actorType)) {
             playerMovement(10, gameState.actorType);
         }
     }
     function onRightArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (gameState.playerOneIndex % 10 !== 8 & collisionChecker(gameState.playerOneIndex, 1, gameState.actorType)) {
+        if (index % 10 !== 8 & collisionChecker(index, 1, gameState.actorType)) {
             playerMovement(1, gameState.actorType);
         }
     }
     function onLeftArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (gameState.playerOneIndex % 10 !== 1 & collisionChecker(gameState.playerOneIndex, -1, gameState.actorType)) {
+        if (index % 10 !== 1 & collisionChecker(index, -1, gameState.actorType)) {
             playerMovement(-1, gameState.actorType);
         }
     }
@@ -50,76 +50,97 @@ export default function Board() {
                 return false;
             case "e_blu":
                 if (type === "one") {
-                    return moveBlock(index, direction);
+                    return moveBlock(index+direction, direction);
                 } else {
                     return false;
                 }
             case "e_org":
                 if (type === "two") {
-                    return moveBlock(index, direction);
+                    return moveBlock(index+direction, direction);
                 } else {
                     return false;
             }
             case "e_bgl":
-                if (type === "e_blu") {
-                    gameState.currentMapData[index+direction].type = "e_air";
-                }
                 return true;
             case "e_ogl":
-                if (type === "e_org") {
-                    gameState.currentMapData[index+direction].type = "e_air";
-                }
                 return true;
+            default:
+                return false;
         }
     }
 
     function moveBlock(index, direction) {
-        console.log("MoveBlock: " + index + " | " + direction);
+        console.log("MoveBlock at: " + index + " | in : " + direction);
         let blockIndex = index + direction;
-        let nextIndex = blockIndex + direction;
-        let blockType = gameState.currentMapData[blockIndex].type;
-        if (collisionChecker(blockIndex, direction, blockType) === false) {
+        let blockType = gameState.currentMapData[index].type;
+        if (collisionChecker(index, direction, blockType) === false) {
             return false;
         }
-        // if ((blockType === "e_blu" && gameState.currentMapData[nextIndex].type === "e_bgl")
-        //     || (blockType === "e_org" && gameState.currentMapData[nextIndex].type === "e_ogl")) {
-        //     console.log("Clear!");
-        //     gameState.currentMapData[blockIndex] = "e_air";
-        // } else {
-        //     gameState.currentMapData[nextIndex] = blockType;
-        // }
+        
+        console.log("Front block: " + gameState.currentMapData[index+direction].type);
+        console.log("Type: " + blockType);
+        if (gameState.currentMapData[index+direction].type === "e_bgl"
+            || gameState.currentMapData[index+direction].type === "e_ogl") {
+            gameState.currentMapData[index].type = "e_air";
+            gameState.currentMapData[index+direction].type = "e_air";
+        } else {
+            gameState.currentMapData[index+direction].type = blockType;
+        }
         return true;
     }
 
     function playerMovement(direction, type) {
-        console.log("Moving player");
+        console.log("Moving player: " + direction + " | " + type);
         if (type === "one") {
             setGameState(prevState => ({
                 ...prevState,
                 playerOnePrevIndex: prevState.playerOneIndex,
                 playerOneIndex: prevState.playerOneIndex + direction
             }))
-            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+
         } else {
             setGameState(prevState => ({
                 ...prevState,
                 playerTwoPrevIndex: prevState.playerTwoIndex,
                 playerTwoIndex: prevState.playerTwoIndex + direction
-            }))
-            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_two"};            
+            }))      
         }
     }
 
     useEffect(() => {
-        if (gameState.playerOneIndex > 10) {
-            gameState.currentMapData[gameState.playerOnePrevIndex] = {type: "e_air"};
-            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };
-          }
+        let index = 0;
+        let prevIndex = 0;
+        let prevType = "e_air";
+        if (gameState.actorType === "one") {
+            index = gameState.playerOneIndex;
+            prevIndex = gameState.playerOnePrevIndex;
+            prevType = gameState.playerOnePrevType;
+            gameState.playerOnePrevType = gameState.currentMapData[index].type;
+            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                gameState.currentMapData[prevIndex].type = prevType;
+            } else {
+                gameState.currentMapData[prevIndex].type = "e_air";
+            }
+            gameState.currentMapData[index] = { type: "e_one" };
+            gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_two" };
+        } else {
+            index = gameState.playerTwoIndex;
+            prevIndex = gameState.playerTwoPrevIndex;
+            prevType = gameState.playerTwoPrevType;
+            gameState.playerTwoPrevIndex = gameState.currentMapData[index].type;
+            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                gameState.currentMapData[prevIndex].type = prevType;
+            } else {
+                gameState.currentMapData[prevIndex].type = "e_air";
+            }
+
+            gameState.currentMapData[index] = { type: "e_two" };
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
+        }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOneIndex,
-        gameState.currentMapData,]); // useEffect will run after gameState changes
+        gameState.playerTwoIndex,
+        gameState.currentMapData]); // useEffect will run after gameState changes
 
     return (
         <div>
