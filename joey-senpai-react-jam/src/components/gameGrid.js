@@ -18,8 +18,12 @@ function GameGrid(props) {
                                 return <div className="air"></div>;
                             case "e_blu":
                                 return <div className="blue-block"></div>;
+                            case "e_bgl":
+                                return <div className="blue-goal"></div>;
                             case "e_org":
                                 return <div className="orange-block"></div>;
+                            case "e_ogl":
+                                return <div className="orange-goal"></div>;
                             case "e_act":
                                 return <div> <Actor x={props.playerOneX} y={props.playerOneY} src={1}></Actor></div>
                             case "e_act_2":
