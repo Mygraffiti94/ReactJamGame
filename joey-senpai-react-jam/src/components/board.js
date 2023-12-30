@@ -127,7 +127,8 @@ export default function Board() {
             index = gameState.playerTwoIndex;
             prevIndex = gameState.playerTwoPrevIndex;
             prevType = gameState.playerTwoPrevType;
-            gameState.playerTwoPrevIndex = gameState.currentMapData[index].type;
+            gameState.playerTwoPrevType = gameState.currentMapData[index].type;
+            console.log("Index: " + index + " | prevIndex: " + prevIndex + " | prevType: " + prevType);
             if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
                 gameState.currentMapData[prevIndex].type = prevType;
             } else {
