@@ -3,7 +3,7 @@ import React from "react"
 import './gameGrid.css';
 
 function GameGrid(props) {
-    const gridData = props.mapData[0];
+    const gridData = props.mapData[props.level];
     return (
         <>
             <h1>Sokobros</h1>
