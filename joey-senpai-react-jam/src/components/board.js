@@ -45,9 +45,9 @@ export default function Board() {
         console.log("CollisionChecker: " + index + " | " + direction + " | " + type + " | " + gameState.currentMapData[index+direction].type);
         switch (gameState.currentMapData[index + direction].type) {
             case "e_air":
+            case "e_bgl":
+            case "e_ogl":
                 return true;
-            case "e_wal":
-                return false;
             case "e_blu":
                 if (type === "one") {
                     return moveBlock(index+direction, direction);
@@ -60,10 +60,7 @@ export default function Board() {
                 } else {
                     return false;
             }
-            case "e_bgl":
-                return true;
-            case "e_ogl":
-                return true;
+            case "e_wal":
             default:
                 return false;
         }
