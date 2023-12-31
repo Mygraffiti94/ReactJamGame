@@ -109,9 +109,41 @@ export default function Board() {
         let prevIndex = 0;
         let prevType = "e_air";
 
-        // We can use gridUpdateCounter to track when we restart a level so we can use the information stored on
-        // map data to place the characters on screen thats driven by the map data rather than hard coding it on the mapdata
-        if (gridUpdateCounter === 0) {
+        if (gameState.actorType === "one") {
+            index = gameState.playerOneIndex;
+            prevIndex = gameState.playerOnePrevIndex;
+            prevType = gameState.playerOnePrevType;
+            gameState.playerOnePrevType = gameState.currentMapData[index].type;
+            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                gameState.currentMapData[prevIndex].type = prevType;
+            } else {
+                gameState.currentMapData[prevIndex].type = "e_air";
+            }
+            gameState.currentMapData[index] = { type: "e_one" };
+            gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_two" };
+        } else {
+            index = gameState.playerTwoIndex;
+            prevIndex = gameState.playerTwoPrevIndex;
+            prevType = gameState.playerTwoPrevType;
+            if (gameState.currentMapData.mapData) {
+                gameState.currentMapData = gameState.currentMapData.mapData;
+            }
+            gameState.playerTwoPrevType = gameState.currentMapData[index].type;
+            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                gameState.currentMapData[prevIndex].type = prevType;
+            } else {
+                gameState.currentMapData[prevIndex].type = "e_air";
+            }
+
+            gameState.currentMapData[index] = { type: "e_two" };
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
+        }
+
+        if (gameState.clearConCounter >= gameState.mapClearCon) {
+            // Get rid of previous player tokens
+            gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+            gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+            // Reset game state for next level
             gameState.clearConCounter = 0;
             gameState.actorType = "one";
             gameState.currentMapData = gameState.mapData[gameState.level].mapData;
@@ -119,43 +151,6 @@ export default function Board() {
             gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
             gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
             gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
-        } else {
-            if (gameState.actorType === "one") {
-                index = gameState.playerOneIndex;
-                prevIndex = gameState.playerOnePrevIndex;
-                prevType = gameState.playerOnePrevType;
-                gameState.playerOnePrevType = gameState.currentMapData[index].type;
-                if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
-                    gameState.currentMapData[prevIndex].type = prevType;
-                } else {
-                    gameState.currentMapData[prevIndex].type = "e_air";
-                }
-                gameState.currentMapData[index] = { type: "e_one" };
-                gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_two" };
-            } else {
-                index = gameState.playerTwoIndex;
-                prevIndex = gameState.playerTwoPrevIndex;
-                prevType = gameState.playerTwoPrevType;
-                if (gameState.currentMapData.mapData) {
-                    gameState.currentMapData = gameState.currentMapData.mapData;
-                }
-                gameState.playerTwoPrevType = gameState.currentMapData[index].type;
-                if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
-                    gameState.currentMapData[prevIndex].type = prevType;
-                } else {
-                    gameState.currentMapData[prevIndex].type = "e_air";
-                }
-
-                gameState.currentMapData[index] = { type: "e_two" };
-                gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
-            }
-
-            if (gameState.clearConCounter >= gameState.mapClearCon) {
-                gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
-                gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
-                gameState.clearConCounter = 0;
-                setGridUpdateCounter(0);
-            }
         }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOneIndex,
