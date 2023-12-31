@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_ZERO_INITIAL } from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE } from '../assets/mapData';
 
 export default function Board() {
     const [gameState, setGameState] = useState({mapData: [LEVEL_ZERO, LEVEL_ONE], currentMapData: LEVEL_ZERO.mapData, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0, resetState: 0});

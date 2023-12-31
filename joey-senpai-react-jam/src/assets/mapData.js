@@ -32,21 +32,6 @@ export const LEVEL_ZERO = {
                 initialOrangeDrop: [37]
 
             }
-export const LEVEL_ZERO_INITIAL = {
-    mapData:
-[{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_blu"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_bgl"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
-{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}],
-playerOneIndex: 11,
-playerTwoIndex: 18
-}
 
 export const LEVEL_ONE = {
                 mapData:
@@ -61,5 +46,11 @@ export const LEVEL_ONE = {
                     {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
                     {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}],
                 playerOneIndex: 81,
-                playerTwoIndex: 88
+                playerTwoIndex: 88,
+                initialPlayerOneIndex: 81,
+                initialPlayerTwoIndex: 88,
+                initialBlueBlocks: [26, 27],
+                initialOrangeBlocks: [22, 23],
+                initialBlueDrop: [32],
+                initialOrangeDrop: [37]
             }
