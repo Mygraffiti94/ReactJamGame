@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import Actor from "./actor"
-import { testLevel } from '../assets/mapData';
+import { testLevel, LEVEL_ONE } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air"});
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -67,19 +66,23 @@ export default function Board() {
     }
 
     function moveBlock(index, direction) {
-        console.log("MoveBlock at: " + index + " | in : " + direction);
-        let blockIndex = index + direction;
         let blockType = gameState.currentMapData[index].type;
         if (collisionChecker(index, direction, blockType) === false) {
             return false;
         }
         
-        console.log("Front block: " + gameState.currentMapData[index+direction].type);
-        console.log("Type: " + blockType);
         if (gameState.currentMapData[index+direction].type === "e_bgl"
             || gameState.currentMapData[index+direction].type === "e_ogl") {
+            console.log("Clear!");
             gameState.currentMapData[index].type = "e_air";
             gameState.currentMapData[index+direction].type = "e_air";
+            gameState.clearConCounter += 1;
+            if (gameState.clearConCounter >= gameState.mapClearCon) {
+                setGameState(prevState => ({
+                    ...prevState,
+                    currentMapData: LEVEL_ONE
+                }))
+            }
         } else {
             gameState.currentMapData[index+direction].type = blockType;
         }
@@ -135,6 +138,20 @@ export default function Board() {
             gameState.currentMapData[index] = { type: "e_two" };
             gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
         }
+
+        if (gameState.clearConCounter >= gameState.mapClearCon) {
+            gameState.level += 1;
+            gameState.currentMapData = [];
+            gameState.currentMapData = LEVEL_ONE;
+            if (gameState.level === 1) {
+                gameState.playerOneIndex = 81;
+                gameState.playerOnePrevIndex = 81;
+                gameState.playerTwoIndex = 88;
+                gameState.playerTwoPrevIndex = 88;
+            }
+            gameState.clearConCounter = 0;
+            console.log(gameState.currentMapData);
+        }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOneIndex,
         gameState.playerTwoIndex,
@@ -143,10 +160,9 @@ export default function Board() {
     return (
         <div>
             <GameGrid
-                x={gameState.xCoord}
-                y={gameState.yCoord}
                 playerIndex={gameState.playerOneIndex}
                 mapData={gameState.mapData}
+                level={gameState.level}
             />
             <GameController 
                 leftClick={onLeftArrowClick}

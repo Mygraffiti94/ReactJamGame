@@ -7,6 +7,7 @@ function GameGrid(props) {
     return (
         <>
             <h1>Sokobros</h1>
+            <h2>Level: {props.level}</h2>
             
             <div className="center">
                 <div className="interactable-grid">
@@ -27,7 +28,7 @@ function GameGrid(props) {
                             case "e_one":
                                 return <div> <Actor src={1}></Actor></div>
                             case "e_two":
-                                return <div> <Actor></Actor></div>
+                                return <div> <Actor src={2}></Actor></div>
                             default:
                                 break;
                         }
