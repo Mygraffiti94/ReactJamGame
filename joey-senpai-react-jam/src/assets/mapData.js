@@ -23,8 +23,31 @@ export const LEVEL_ZERO = {
                     {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
                     {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}],
                 playerOneIndex: 11,
-                playerTwoIndex: 18
+                playerTwoIndex: 18,
+                initialPlayerOneIndex: 11,
+                initialPlayerTwoIndex: 18,
+                initialBlueBlocks: [22],
+                initialOrangeBlocks: [27],
+                initialBlueDrop: [32],
+                initialOrangeDrop: [37]
+
             }
+export const LEVEL_ZERO_INITIAL = {
+    mapData:
+[{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_blu"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_bgl"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}],
+playerOneIndex: 11,
+playerTwoIndex: 18
+}
+
 export const LEVEL_ONE = {
                 mapData:
                     [{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"},

@@ -13,6 +13,8 @@ function GameController(props) {
                 <button onClick={props.rightClick}>→</button>
                 <div></div>
                 <button onClick={props.downClick}>↓</button>
+                <div></div>
+                <button onClick={props.resetGame}>Reset the Game</button>
             </div>
         </>
     );

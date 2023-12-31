@@ -1,10 +1,10 @@
 import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import { testLevel, LEVEL_ZERO, LEVEL_ONE } from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_ZERO_INITIAL } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air"});
+    const [gameState, setGameState] = useState({mapData: [LEVEL_ZERO, LEVEL_ONE], currentMapData: LEVEL_ZERO.mapData, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0, resetState: 0});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -38,6 +38,14 @@ export default function Board() {
         if (index % 10 !== 1 & collisionChecker(index, -1, gameState.actorType)) {
             playerMovement(-1, gameState.actorType);
         }
+    }
+
+    function resetGame() {
+        setGameState(prevState => ({
+            ...prevState,
+            resetState: 1,
+        }))
+
     }
 
     function collisionChecker(index, direction, type) {
@@ -108,8 +116,41 @@ export default function Board() {
         let index = 0;
         let prevIndex = 0;
         let prevType = "e_air";
-
-        if (gameState.actorType === "one") {
+        if (gameState.resetState === 1) {
+            gameState.resetState = 0
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_air" }
+            gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_air" }
+            for (let i= 0; i < gameState.currentMapData.length; i++) {
+                switch (gameState.currentMapData[i].type) {
+                case "e_blu":
+                    gameState.currentMapData[i].type = 'e_air'
+                case "e_org":
+                    gameState.currentMapData[i].type = 'e_air'
+                }
+            }
+            for (let i=0; i < gameState.mapData[gameState.level].initialBlueBlocks.length; i++) {
+                gameState.currentMapData[gameState.mapData[gameState.level].initialBlueBlocks[i]] = { type: "e_blu" }
+            }
+            for (let i=0; i < gameState.mapData[gameState.level].initialOrangeBlocks.length; i++) {
+                gameState.currentMapData[gameState.mapData[gameState.level].initialOrangeBlocks[i]] = { type: "e_org" }
+            }
+            for (let i=0; i < gameState.mapData[gameState.level].initialBlueDrop.length; i++) {
+                gameState.currentMapData[gameState.mapData[gameState.level].initialBlueDrop[i]] = { type: "e_bgl" }
+            }
+            for (let i=0; i < gameState.mapData[gameState.level].initialOrangeDrop.length; i++) {
+                gameState.currentMapData[gameState.mapData[gameState.level].initialOrangeDrop[i]] = { type: "e_ogl" }
+            }
+            gameState.playerOneIndex = gameState.mapData[gameState.level].initialPlayerOneIndex;
+            gameState.playerOnePrevIndex = gameState.mapData[gameState.level].initialPlayerOneIndex;
+            gameState.playerOnePrevType = "e_air";
+            gameState.actorType = "one";
+            gameState.playerTwoIndex = gameState.mapData[gameState.level].initialPlayerTwoIndex;
+            gameState.playerTwoPrevIndex = gameState.mapData[gameState.level].initialPlayerTwoIndex;
+            gameState.clearConCounter = 0;
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" }
+            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_two" }
+        }
+        else if (gameState.actorType === "one") {
             index = gameState.playerOneIndex;
             prevIndex = gameState.playerOnePrevIndex;
             prevType = gameState.playerOnePrevType;
@@ -153,9 +194,12 @@ export default function Board() {
             gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
         }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
-      }, [gameState.playerOneIndex,
+    
+          }, [gameState.playerOneIndex,
         gameState.playerTwoIndex,
-        gameState.currentMapData]); // useEffect will run after gameState changes
+        gameState.currentMapData,
+        gameState.resetState]); // useEffect will run after gameState changes
+    
 
     return (
         <div>
@@ -169,6 +213,7 @@ export default function Board() {
                 upClick={onUpArrowClick}
                 downClick={onDownArrowClick}
                 changeCharacter={changeCharacter}
+                resetGame={resetGame}
             /> 
         
         </div>
