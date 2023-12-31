@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Board from './components/board';
+import Menu from './components/misc/menu';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           Learn React with senpai
         </a>
       </header> */}
-      <Board />
+      <Menu />
     </div>
   );
 }

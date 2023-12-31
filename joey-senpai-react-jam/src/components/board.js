@@ -5,7 +5,20 @@ import Actor from "./actor"
 import { testLevel } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air"});
+    const [gameState, setGameState] = useState(
+        {
+            mapData: [testLevel], 
+            currentMapData: testLevel, 
+            xCoord: 1, 
+            yCoord: 10, 
+            actorType: 'one', 
+            playerOneIndex: 11, 
+            playerOnePrevIndex: 11, 
+            playerOnePrevType: "e_air", 
+            playerTwoIndex: 18, 
+            playerTwoPrevIndex: 18, 
+            playerTwoPrevType: "e_air"
+        });
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
