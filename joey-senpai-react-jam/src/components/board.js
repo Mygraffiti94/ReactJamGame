@@ -1,10 +1,10 @@
 import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import { testLevel, LEVEL_ONE } from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [testLevel, LEVEL_ONE], currentMapData: testLevel, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0});
+    const [gameState, setGameState] = useState({mapData: [LEVEL_ZERO, LEVEL_ONE], currentMapData: LEVEL_ZERO.mapData, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -41,7 +41,6 @@ export default function Board() {
     }
 
     function collisionChecker(index, direction, type) {
-        console.log("CollisionChecker: " + index + " | " + direction + " | " + type + " | " + gameState.currentMapData[index+direction].type);
         switch (gameState.currentMapData[index + direction].type) {
             case "e_air":
             case "e_bgl":
@@ -79,7 +78,7 @@ export default function Board() {
             if (gameState.clearConCounter >= gameState.mapClearCon) {
                 setGameState(prevState => ({
                     ...prevState,
-                    currentMapData: LEVEL_ONE
+                    level: prevState.level+1
                 }))
             }
         } else {
@@ -109,49 +108,54 @@ export default function Board() {
         let index = 0;
         let prevIndex = 0;
         let prevType = "e_air";
-        if (gameState.actorType === "one") {
-            index = gameState.playerOneIndex;
-            prevIndex = gameState.playerOnePrevIndex;
-            prevType = gameState.playerOnePrevType;
-            gameState.playerOnePrevType = gameState.currentMapData[index].type;
-            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
-                gameState.currentMapData[prevIndex].type = prevType;
-            } else {
-                gameState.currentMapData[prevIndex].type = "e_air";
-            }
-            gameState.currentMapData[index] = { type: "e_one" };
-            gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_two" };
-        } else {
-            index = gameState.playerTwoIndex;
-            prevIndex = gameState.playerTwoPrevIndex;
-            prevType = gameState.playerTwoPrevType;
-            gameState.playerTwoPrevType = gameState.currentMapData[index].type;
-            if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
-                gameState.currentMapData[prevIndex].type = prevType;
-            } else {
-                gameState.currentMapData[prevIndex].type = "e_air";
-            }
 
-            gameState.currentMapData[index] = { type: "e_two" };
-            gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
-        }
-
-        if (gameState.clearConCounter >= gameState.mapClearCon) {
-            gameState.level += 1;
-            gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
-            gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
-            if (gameState.level === 1) {
-                gameState.actorType = "one";
-                gameState.currentMapData = LEVEL_ONE;
-                gameState.playerOneIndex = 81;
-                gameState.playerOnePrevIndex = 81;
-                gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
-                gameState.playerTwoIndex = 88;
-                gameState.playerTwoPrevIndex = 88;
-                gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
-                console.log(gameState.currentMapData);
-            }
+        // We can use gridUpdateCounter to track when we restart a level so we can use the information stored on
+        // map data to place the characters on screen thats driven by the map data rather than hard coding it on the mapdata
+        if (gridUpdateCounter === 0) {
             gameState.clearConCounter = 0;
+            gameState.actorType = "one";
+            gameState.currentMapData = gameState.mapData[gameState.level].mapData;
+            gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
+            gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
+            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+            gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        } else {
+            if (gameState.actorType === "one") {
+                index = gameState.playerOneIndex;
+                prevIndex = gameState.playerOnePrevIndex;
+                prevType = gameState.playerOnePrevType;
+                gameState.playerOnePrevType = gameState.currentMapData[index].type;
+                if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                    gameState.currentMapData[prevIndex].type = prevType;
+                } else {
+                    gameState.currentMapData[prevIndex].type = "e_air";
+                }
+                gameState.currentMapData[index] = { type: "e_one" };
+                gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_two" };
+            } else {
+                index = gameState.playerTwoIndex;
+                prevIndex = gameState.playerTwoPrevIndex;
+                prevType = gameState.playerTwoPrevType;
+                if (gameState.currentMapData.mapData) {
+                    gameState.currentMapData = gameState.currentMapData.mapData;
+                }
+                gameState.playerTwoPrevType = gameState.currentMapData[index].type;
+                if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
+                    gameState.currentMapData[prevIndex].type = prevType;
+                } else {
+                    gameState.currentMapData[prevIndex].type = "e_air";
+                }
+
+                gameState.currentMapData[index] = { type: "e_two" };
+                gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
+            }
+
+            if (gameState.clearConCounter >= gameState.mapClearCon) {
+                gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+                gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+                gameState.clearConCounter = 0;
+                setGridUpdateCounter(0);
+            }
         }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOneIndex,
