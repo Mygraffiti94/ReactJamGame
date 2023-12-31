@@ -3,10 +3,11 @@ import React from "react"
 import './gameGrid.css';
 
 function GameGrid(props) {
-    const gridData = props.mapData[0];
+    const gridData = props.mapData[props.level].mapData;
     return (
         <>
             <h1>Sokobros</h1>
+            <h2>Level: {props.level}</h2>
             
             <div className="center">
                 <div className="interactable-grid">
@@ -27,7 +28,7 @@ function GameGrid(props) {
                             case "e_one":
                                 return <div> <Actor src={1}></Actor></div>
                             case "e_two":
-                                return <div> <Actor></Actor></div>
+                                return <div> <Actor src={2}></Actor></div>
                             default:
                                 break;
                         }

@@ -1,24 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import Actor from "./actor"
-import { testLevel } from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState(
-        {
-            mapData: [testLevel], 
-            currentMapData: testLevel, 
-            xCoord: 1, 
-            yCoord: 10, 
-            actorType: 'one', 
-            playerOneIndex: 11, 
-            playerOnePrevIndex: 11, 
-            playerOnePrevType: "e_air", 
-            playerTwoIndex: 18, 
-            playerTwoPrevIndex: 18, 
-            playerTwoPrevType: "e_air"
-        });
+    const [gameState, setGameState] = useState({mapData: [testLevel], currentMapData: testLevel, xCoord: 1, yCoord: 10, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air"});
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -55,12 +41,11 @@ export default function Board() {
     }
 
     function collisionChecker(index, direction, type) {
-        console.log("CollisionChecker: " + index + " | " + direction + " | " + type + " | " + gameState.currentMapData[index+direction].type);
         switch (gameState.currentMapData[index + direction].type) {
             case "e_air":
+            case "e_bgl":
+            case "e_ogl":
                 return true;
-            case "e_wal":
-                return false;
             case "e_blu":
                 if (type === "one") {
                     return moveBlock(index+direction, direction);
@@ -73,29 +58,29 @@ export default function Board() {
                 } else {
                     return false;
             }
-            case "e_bgl":
-                return true;
-            case "e_ogl":
-                return true;
+            case "e_wal":
             default:
                 return false;
         }
     }
 
     function moveBlock(index, direction) {
-        console.log("MoveBlock at: " + index + " | in : " + direction);
-        let blockIndex = index + direction;
         let blockType = gameState.currentMapData[index].type;
         if (collisionChecker(index, direction, blockType) === false) {
             return false;
         }
         
-        console.log("Front block: " + gameState.currentMapData[index+direction].type);
-        console.log("Type: " + blockType);
         if (gameState.currentMapData[index+direction].type === "e_bgl"
             || gameState.currentMapData[index+direction].type === "e_ogl") {
             gameState.currentMapData[index].type = "e_air";
             gameState.currentMapData[index+direction].type = "e_air";
+            gameState.clearConCounter += 1;
+            if (gameState.clearConCounter >= gameState.mapClearCon) {
+                setGameState(prevState => ({
+                    ...prevState,
+                    level: prevState.level+1
+                }))
+            }
         } else {
             gameState.currentMapData[index+direction].type = blockType;
         }
@@ -103,7 +88,6 @@ export default function Board() {
     }
 
     function playerMovement(direction, type) {
-        console.log("Moving player: " + direction + " | " + type);
         if (type === "one") {
             setGameState(prevState => ({
                 ...prevState,
@@ -124,6 +108,7 @@ export default function Board() {
         let index = 0;
         let prevIndex = 0;
         let prevType = "e_air";
+
         if (gameState.actorType === "one") {
             index = gameState.playerOneIndex;
             prevIndex = gameState.playerOnePrevIndex;
@@ -140,8 +125,10 @@ export default function Board() {
             index = gameState.playerTwoIndex;
             prevIndex = gameState.playerTwoPrevIndex;
             prevType = gameState.playerTwoPrevType;
+            if (gameState.currentMapData.mapData) {
+                gameState.currentMapData = gameState.currentMapData.mapData;
+            }
             gameState.playerTwoPrevType = gameState.currentMapData[index].type;
-            console.log("Index: " + index + " | prevIndex: " + prevIndex + " | prevType: " + prevType);
             if (prevType === "e_air" || prevType === "e_bgl" || prevType === "e_ogl") {
                 gameState.currentMapData[prevIndex].type = prevType;
             } else {
@@ -151,6 +138,20 @@ export default function Board() {
             gameState.currentMapData[index] = { type: "e_two" };
             gameState.currentMapData[gameState.playerOneIndex] = { type: "e_one" };           
         }
+
+        if (gameState.clearConCounter >= gameState.mapClearCon) {
+            // Get rid of previous player tokens
+            gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+            gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+            // Reset game state for next level
+            gameState.clearConCounter = 0;
+            gameState.actorType = "one";
+            gameState.currentMapData = gameState.mapData[gameState.level].mapData;
+            gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
+            gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
+            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+            gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
       }, [gameState.playerOneIndex,
         gameState.playerTwoIndex,
@@ -159,10 +160,8 @@ export default function Board() {
     return (
         <div>
             <GameGrid
-                x={gameState.xCoord}
-                y={gameState.yCoord}
-                playerIndex={gameState.playerOneIndex}
                 mapData={gameState.mapData}
+                level={gameState.level}
             />
             <GameController 
                 leftClick={onLeftArrowClick}
