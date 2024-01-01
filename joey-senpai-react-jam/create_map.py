@@ -19,29 +19,27 @@ def create_map_from_json(json_file: str):
     with open(json_file, 'r') as f:
         configuration = json.load(f)
     map_data = '['
-    for row in range(1, configuration['x'] + 1):
-        for column in range(0, configuration['y']):
-            idx = row * column
-            if idx in configuration['blue_blocks']:
-                map_data = map_data + '{type: "e_blu"}, '
-            elif idx in configuration['orange_blocks']:
-                map_data = map_data + '{type: "e_org"}, '
-            elif idx in configuration['blue_drops']:
-                map_data = map_data + '{type: "e_bgl"}, '
-            elif idx in configuration['orange_drops']:
-                map_data = map_data + '{type: "e_ogl"}, '
-            elif idx in configuration['extra_walls']:
-                map_data = map_data + '{type: "e_wal"}, '
-            elif idx < configuration['y']:
-                map_data = map_data + '{type: "e_wal"}, '
-            elif idx % configuration['y'] == 0 in [0, 1]:
-                map_data = map_data + '{type: "e_wal"}, '
-            elif idx > ((configuration['x'] - 1) * configuration['y']):
-                map_data = map_data + '{type: "e_wal"}, '
-            elif idx == (configuration['x'] * configuration['y'] - 1):
-                map_data = map_data + '{type: "e_wal"}]'
-            else:
-                map_data = map_data + '{type: "e_air:}, '
+    for idx in range(0, configuration['x'] * configuration['y']):
+        if idx in configuration['blue_blocks']:
+            map_data = map_data + '{type: "e_blu"}, '
+        elif idx in configuration['orange_blocks']:
+            map_data = map_data + '{type: "e_org"}, '
+        elif idx in configuration['blue_drops']:
+            map_data = map_data + '{type: "e_bgl"}, '
+        elif idx in configuration['orange_drops']:
+            map_data = map_data + '{type: "e_ogl"}, '
+        elif idx in configuration['extra_walls']:
+            map_data = map_data + '{type: "e_wal"}, '
+        elif idx < configuration['y']:
+            map_data = map_data + '{type: "e_wal1"}, '
+        elif idx == (configuration['x'] * configuration['y'] - 1):
+            map_data = map_data + '{type: "e_wal"}]'
+        elif idx % configuration['y'] == 0 in [0, 1]:
+            map_data = map_data + '{type: "e_wal"}, '
+        elif idx > (configuration['x'] * (configuration['y'] - 1)):
+            map_data = map_data + '{type: "e_wal"}, '
+        else:
+            map_data = map_data + '{type: "e_air:}, '
     print(map_data)
 
 if __name__ == '__main__':
