@@ -4,13 +4,20 @@ import './gameGrid.css';
 
 function GameGrid(props) {
     const gridData = props.mapData[props.level].mapData;
+    const style = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${props.mapData[props.level].mapX}, 25px)`,
+    gridTemplateRows: `repeat(${props.mapData[props.level].mapY}, 25px)`,
+    gridGap: "0px",
+    }
+    //className="interactable-grid"
     return (
         <>
             <h1>Sokobros</h1>
             <h2>Level: {props.level}</h2>
             
             <div className="center">
-                <div className="interactable-grid">
+                <div style={style}>
                     {gridData.map((item, index) => {
                         switch (item.type) {
                             case "e_wal":
