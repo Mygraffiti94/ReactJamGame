@@ -1,10 +1,27 @@
 import React, { Component, useEffect, useState } from "react"
+
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
-import { testLevel, LEVEL_ZERO, LEVEL_ONE } from '../assets/mapData';
+import VictoryScreen from "./misc/victory"
+import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO } from '../assets/mapData';
 
 export default function Board() {
-    const [gameState, setGameState] = useState({mapData: [LEVEL_ZERO, LEVEL_ONE], currentMapData: LEVEL_ZERO.mapData, mapClearCon: 2, clearConCounter: 0, actorType: 'one', playerOneIndex: 11, playerOnePrevIndex: 11, playerOnePrevType: "e_air", playerTwoIndex: 18, playerTwoPrevIndex: 18, playerTwoPrevType: "e_air", level: 0, resetState: 0});
+    const [gameState, setGameState] = useState({
+        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO], 
+        currentMapData: LEVEL_ZERO.mapData, 
+        mapClearCon: 2, 
+        clearConCounter: 0, 
+        actorType: 'one', 
+        playerOneIndex: LEVEL_ZERO.initialPlayerOneIndex, 
+        playerOnePrevIndex: LEVEL_ZERO.initialPlayerOneIndex, 
+        playerOnePrevType: "e_air", 
+        playerTwoIndex: LEVEL_ZERO.initialPlayerTwoIndex, 
+        playerTwoPrevIndex: LEVEL_ZERO.initialPlayerTwoIndex, 
+        playerTwoPrevType: "e_air", 
+        level: 0, 
+        resetState: 0, 
+        gameWon: 0,
+    });
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
@@ -16,26 +33,27 @@ export default function Board() {
 
     function onUpArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (index > 19 && collisionChecker(index, -10, gameState.actorType)) {
-            playerMovement(-10, gameState.actorType);
+        if (index > gameState.mapData[gameState.level].mapY * 2 - 1 && collisionChecker(index, -1 * gameState.mapData[gameState.level].mapY, gameState.actorType)) {
+            console.log(-1 * gameState.mapData[gameState.level].mapX)
+            playerMovement(-1 * gameState.mapData[gameState.level].mapX, gameState.actorType);
         }
     }
 
     function onDownArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (index < 80 & collisionChecker(index, 10, gameState.actorType)) {
-            playerMovement(10, gameState.actorType);
+        if (index < gameState.mapData[gameState.level].mapX * (gameState.mapData[gameState.level].mapY - 1) - 1 & collisionChecker(index, gameState.mapData[gameState.level].mapY, gameState.actorType)) {
+            playerMovement(gameState.mapData[gameState.level].mapX, gameState.actorType);
         }
     }
     function onRightArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (index % 10 !== 8 & collisionChecker(index, 1, gameState.actorType)) {
+        if (index % gameState.mapData[gameState.level].mapX !== gameState.mapData[gameState.level].mapX - 2 & collisionChecker(index, 1, gameState.actorType)) {
             playerMovement(1, gameState.actorType);
         }
     }
     function onLeftArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (index % 10 !== 1 & collisionChecker(index, -1, gameState.actorType)) {
+        if (index % gameState.mapData[gameState.level].mapX !== 1 & collisionChecker(index, -1, gameState.actorType)) {
             playerMovement(-1, gameState.actorType);
         }
     }
@@ -181,17 +199,22 @@ export default function Board() {
         }
 
         if (gameState.clearConCounter >= gameState.mapClearCon) {
+            if (gameState.level === gameState.mapData.length) {
+                gameState.gameWon = 1;
+            }
+            else {
             // Get rid of previous player tokens
-            gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
-            gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
-            // Reset game state for next level
-            gameState.clearConCounter = 0;
-            gameState.actorType = "one";
-            gameState.currentMapData = gameState.mapData[gameState.level].mapData;
-            gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
-            gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
-            gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
-            gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+                gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+                gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+                // Reset game state for next level
+                gameState.clearConCounter = 0;
+                gameState.actorType = "one";
+                gameState.currentMapData = gameState.mapData[gameState.level].mapData;
+                gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
+                gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
+                gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+                gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+            }
         }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);
     
@@ -202,9 +225,13 @@ export default function Board() {
     
 
     return (
+        <>
+        {gameState.gameWon === 0 ? 
         <div>
             <GameGrid
                 mapData={gameState.mapData}
+                mapX = {gameState.mapData[gameState.level].mapX}
+                mapY = {gameState.mapData[gameState.level].mapY}
                 level={gameState.level}
             />
             <GameController 
@@ -215,7 +242,10 @@ export default function Board() {
                 changeCharacter={changeCharacter}
                 resetGame={resetGame}
             /> 
-        
         </div>
+        :
+        <VictoryScreen />
+        }
+        </>
     );
 }

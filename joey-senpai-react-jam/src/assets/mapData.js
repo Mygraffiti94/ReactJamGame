@@ -78,8 +78,8 @@ export const LEVEL_TWO = {
     initialBlueBlocks: [79, 86, 96],
     extra_walls: [36, 37, 38, 48, 58, 59, 60],
     initialOrangeBlocks: [78, 90, 85],
-    initialBlueDrop: [44],
-    initialOrangeDrop: [46],
+    initialBlueDrop: [48],
+    initialOrangeDrop: [50],
     mapX: 11,
     mapY: 10,
 }
