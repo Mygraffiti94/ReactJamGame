@@ -58,6 +58,43 @@ export default function Board() {
         }
     }
 
+    function nextLevel() {
+        gameState.level += 1;
+        gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+        gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+        // Reset game state for next level
+        gameState.clearConCounter = 0;
+        gameState.actorType = "one";
+        gameState.currentMapData = gameState.mapData[gameState.level].mapData;
+        gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
+        gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
+        gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+        gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        setGameState(prevState => ({
+            ...prevState,
+            clearConCounter: prevState.mapClearCon
+        }))
+    }
+
+    function previousLevel() {
+        gameState.level -= 1;
+        gameState.currentMapData[gameState.playerOneIndex].type = "e_air";
+        gameState.currentMapData[gameState.playerTwoIndex].type = "e_air";
+        // Reset game state for next level
+        gameState.clearConCounter = 0;
+        gameState.actorType = "one";
+        gameState.currentMapData = gameState.mapData[gameState.level].mapData;
+        gameState.playerOneIndex = gameState.mapData[gameState.level].playerOneIndex;
+        gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
+        gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
+        gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        setGameState(prevState => ({
+            ...prevState,
+            level: prevState.level,
+            clearConCounter: prevState.mapClearCon
+        }))        
+    }
+
     function resetGame() {
         setGameState(prevState => ({
             ...prevState,
@@ -241,6 +278,8 @@ export default function Board() {
                 downClick={onDownArrowClick}
                 changeCharacter={changeCharacter}
                 resetGame={resetGame}
+                nextLevel={nextLevel}
+                previousLevel={previousLevel}
             /> 
         </div>
         :

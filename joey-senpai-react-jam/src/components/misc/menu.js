@@ -12,7 +12,7 @@ function Menu() {
 
     return (
         <>
-            {gameMode === 1 ? <div><h1>Sokobros</h1><button onClick={startGame}>Start!</button> </div>
+            {gameMode === 1 ? <div><h1>Sokobros</h1><button onClick={startGame}>Start!</button></div>
                             : <Board />
             }
         </>

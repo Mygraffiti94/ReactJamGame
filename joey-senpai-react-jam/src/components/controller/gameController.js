@@ -16,6 +16,10 @@ function GameController(props) {
                 <div></div>
                 <button onClick={props.resetGame}>Reset the Game</button>
             </div>
+            <div>
+                <button onClick={props.previousLevel}>←</button>
+                <button onClick={props.nextLevel}>→</button>
+            </div>
         </>
     );
 }
