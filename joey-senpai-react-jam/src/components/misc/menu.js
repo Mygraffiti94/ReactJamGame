@@ -12,7 +12,16 @@ function Menu() {
 
     return (
         <>
-            {gameMode === 1 ? <div><h1>Sokobros</h1><button onClick={startGame}>Start!</button></div>
+            {gameMode === 1 ? <div><div><h1>Sokobros</h1><button onClick={startGame}>Start!</button></div>
+                                    <div><h2>Instructions</h2>
+                                         <li>Use the arrow buttons to move your SOKOBORO</li>
+                                         <li>You can switch between your SOKOBOROs</li>
+                                         <li>A SOKOBRO can only move his matching block </li>
+                                         <li>Pushing a BLUE block into a PURPLE block will clear the PURPLE block</li>
+                                         <li>Pushing an ORANGE block into a PINK block will clear the PINK block</li>
+                                         <li>Clearing all the PURPLE and PINK blocks </li>
+                                    </div>
+                                </div>
                             : <Board />
             }
         </>
