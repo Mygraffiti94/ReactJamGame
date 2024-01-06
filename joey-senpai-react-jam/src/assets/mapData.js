@@ -82,3 +82,20 @@ export const LEVEL_TWO = {
     mapX: 11,
     mapY: 10,
 }
+
+export const LEVEL_THREE = {
+    mapData:
+    [{type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, 
+{type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_ogl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_org"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_org"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_blu"}, {type: "e_org"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_org"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_org"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}],
+    playerOneIndex: 13,
+    playerTwoIndex: 18,
+    initialPlayerOneIndex: 13,
+    initialPlayerTwoIndex: 18,
+    initialBlueBlocks: [46, 52, 69, 86],
+    initialOrangeBlocks: [45, 63, 62, 70, 73, 80, 84, 85],
+    extra_walls: [27, 38, 48, 49, 60, 58, 71, 82, 93, 89],
+    initialBlueDrop: [96],
+    initialOrangeDrop: [24],
+    mapX: 11,
+    mapY: 10,
+}

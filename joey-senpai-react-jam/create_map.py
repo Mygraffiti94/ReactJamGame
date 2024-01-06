@@ -31,7 +31,7 @@ def create_map_from_json(json_file: str):
         elif idx in configuration['extra_walls']:
             map_data = map_data + '{type: "e_wal"}, '
         elif idx < configuration['y']:
-            map_data = map_data + '{type: "e_wal1"}, '
+            map_data = map_data + '{type: "e_wal"}, '
         elif idx == (configuration['x'] * configuration['y'] - 1):
             map_data = map_data + '{type: "e_wal"}]'
         elif idx % configuration['y'] == 0 in [0, 1]:
@@ -39,7 +39,7 @@ def create_map_from_json(json_file: str):
         elif idx > (configuration['x'] * (configuration['y'] - 1)):
             map_data = map_data + '{type: "e_wal"}, '
         else:
-            map_data = map_data + '{type: "e_air:}, '
+            map_data = map_data + '{type: "e_air"}, '
     print(map_data)
 
 if __name__ == '__main__':
