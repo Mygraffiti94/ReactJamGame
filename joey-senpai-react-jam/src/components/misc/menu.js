@@ -17,9 +17,9 @@ function Menu() {
                                          <li>Use the arrow buttons to move your SOKOBORO</li>
                                          <li>You can switch between your SOKOBOROs</li>
                                          <li>A SOKOBRO can only move his matching block </li>
-                                         <li>Pushing a BLUE block into a PURPLE block will clear the PURPLE block</li>
-                                         <li>Pushing an ORANGE block into a PINK block will clear the PINK block</li>
-                                         <li>Clearing all the PURPLE and PINK blocks </li>
+                                         <li>Pushing an empty TRIANGLE block into a black TRIANGLE block will clear the black TRIANGLE block</li>
+                                         <li>Pushing an empty PENTAGON block into a black PENTAGON block will clear the black PENTAGON block</li>
+                                         <li>Clearing all the black TRIANGLE and black PENTAGON blocks will clear the level</li>
                                     </div>
                                 </div>
                             : <Board />

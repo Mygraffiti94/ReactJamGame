@@ -52,7 +52,7 @@
     font-weight: bold;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: rgb(20, 35, 167);
+    background-color: rgb(28, 48, 224);
 }
 
 .blue-goal {
@@ -64,7 +64,7 @@
     font-weight: bold;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: rgb(160, 24, 214);
+    background-color: rgb(119, 32, 233);
 }
 
 .orange-block {
@@ -76,7 +76,7 @@
     font-weight: bold;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: rgb(214, 99, 32);
+    background-color: rgb(230, 109, 40);
 }
 
 .orange-goal {
@@ -88,7 +88,7 @@
     font-weight: bold;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: rgb(212, 25, 181);
+    background-color: rgb(231, 39, 199);
 }
 
 .cell:hover {
