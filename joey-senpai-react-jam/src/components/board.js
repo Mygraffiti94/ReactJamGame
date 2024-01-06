@@ -33,25 +33,13 @@ export default function Board() {
 
     function onUpArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        console.log(`Up Arrow index: ${index}`)
-        console.log("Up Right side Check")
-        console.log(gameState.mapData[gameState.level].mapY * 2 - 1)
-        console.log("Up Collision Checker")
-        console.log(collisionChecker(index, -1 * gameState.mapData[gameState.level].mapY, gameState.actorType))
         if (index > gameState.mapData[gameState.level].mapY * 2 - 1 && collisionChecker(index, -1 * gameState.mapData[gameState.level].mapX, gameState.actorType)) {
-            console.log(-1 * gameState.mapData[gameState.level].mapX)
             playerMovement(-1 * gameState.mapData[gameState.level].mapX, gameState.actorType);
         }
     }
 
     function onDownArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        console.log(`Down Arrow index: ${index}`)
-        console.log("Right side Check")
-        console.log(gameState.mapData[gameState.level].mapX * (gameState.mapData[gameState.level].mapY - 1) - 1)
-        console.log("Collision Checker")
-        console.log(gameState.currentMapData)
-        console.log(collisionChecker(index, gameState.mapData[gameState.level].mapY))
         if (index < gameState.mapData[gameState.level].mapX * (gameState.mapData[gameState.level].mapY - 1) - 1 & collisionChecker(index, gameState.mapData[gameState.level].mapX, gameState.actorType)) {
             playerMovement(gameState.mapData[gameState.level].mapX, gameState.actorType);
         }
@@ -183,7 +171,6 @@ export default function Board() {
         let prevIndex = 0;
         let prevType = "e_air";
         if (gameState.resetState === 1) {
-            console.log("Did reset")
             gameState.resetState = 0
             gameState.currentMapData[gameState.playerOneIndex] = { type: "e_air" }
             gameState.currentMapData[gameState.playerTwoIndex] = { type: "e_air" }
