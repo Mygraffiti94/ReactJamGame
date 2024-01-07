@@ -111,9 +111,17 @@ export default function Board() {
     function collisionChecker(index, direction, type) {
         switch (gameState.currentMapData[index + direction].type) {
             case "e_air":
-            case "e_bgl":
-            case "e_ogl":
                 return true;
+            case "e_bgl":
+                if (gameState.actorType === "one") {
+                    return true;
+                }
+                return false;
+            case "e_ogl":
+                if (gameState.actorType === "two") {
+                    return true;
+                }
+                return false;
             case "e_blu":
                 if (type === "one") {
                     return moveBlock(index+direction, direction);
@@ -260,6 +268,8 @@ export default function Board() {
                 gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
                 gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
                 gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+                gameState.mapClearCon = gameState.mapData[gameState.level].mapClearCon;
+                setActorSymbol("△");
             }
         }
         setGridUpdateCounter((prevCounter) => prevCounter + 1);

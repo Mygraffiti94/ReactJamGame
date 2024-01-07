@@ -118,11 +118,11 @@ export const LEVEL_FOUR = {
     mapData:
     [
         {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
-        {type: "e_wal"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, 
-        {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
-        {type: "e_wal"}, {type: "e_air"}, {type: "e_ogl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, {type: "e_bgl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_ogl"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_org"}, {type: "e_air"}, {type: "e_blu"}, {type: "e_ogl"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, 
         {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
-        {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
         {type: "e_wal"}, {type: "e_ogl"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_org"}, {type: "e_bgl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
         {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
         {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_blu"}, {type: "e_wal"}, {type: "e_wal"}, 
@@ -136,12 +136,12 @@ export const LEVEL_FOUR = {
     playerTwoIndex: 138,
     initialPlayerOneIndex: 131,
     initialPlayerTwoIndex: 138,
-    initialBlueBlocks: [23,62,87,114],
-    initialOrangeBlocks: [22,64,101,125],
+    initialBlueBlocks: [23,27,62,87,114],
+    initialOrangeBlocks: [25,32,64,101,125],
     extra_walls: [],
-    initialBlueDrop: [12,18,65,111],
-    initialOrangeDrop: [32,61,91,135],
+    initialBlueDrop: [12,14,18,65,111],
+    initialOrangeDrop: [22,28,61,91,135],
     mapX: 10,
     mapY: 15,
-    mapClearCon: 8
+    mapClearCon: 10
 }
