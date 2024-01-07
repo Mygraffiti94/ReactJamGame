@@ -32,6 +32,7 @@ export const LEVEL_ZERO = {
                 initialOrangeDrop: [28],
                 mapX: 10,
                 mapY: 10,
+                mapClearCon: 2
             }
 
 export const LEVEL_ONE = {
@@ -54,8 +55,10 @@ export const LEVEL_ONE = {
                 initialOrangeBlocks: [54],
                 initialBlueDrop: [14],
                 initialOrangeDrop: [51],
+                extra_walls: [],
                 mapX: 10,
                 mapY: 10,
+                mapClearCon: 2
             }
 
 export const LEVEL_TWO = {
@@ -81,6 +84,7 @@ export const LEVEL_TWO = {
     initialOrangeDrop: [50],
     mapX: 11,
     mapY: 10,
+    mapClearCon: 2
 }
 
 export const LEVEL_THREE = {
@@ -107,4 +111,37 @@ export const LEVEL_THREE = {
     initialOrangeDrop: [24],
     mapX: 11,
     mapY: 10,
+    mapClearCon: 2
+}
+
+export const LEVEL_FOUR = {
+    mapData:
+    [
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_bgl"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_org"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_ogl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_ogl"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_org"}, {type: "e_bgl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_blu"}, {type: "e_wal"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_ogl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"},
+        {type: "e_wal"}, {type: "e_org"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_bgl"}, {type: "e_air"}, {type: "e_air"}, {type: "e_blu"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_org"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_air"}, {type: "e_ogl"}, {type: "e_air"}, {type: "e_wal"}, {type: "e_air"}, {type: "e_wal"}, 
+        {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}],
+    playerOneIndex: 131,
+    playerTwoIndex: 138,
+    initialPlayerOneIndex: 131,
+    initialPlayerTwoIndex: 138,
+    initialBlueBlocks: [23,62,87,114],
+    initialOrangeBlocks: [22,64,101,125],
+    extra_walls: [],
+    initialBlueDrop: [12,18,65,111],
+    initialOrangeDrop: [32,61,91,135],
+    mapX: 10,
+    mapY: 15,
+    mapClearCon: 8
 }

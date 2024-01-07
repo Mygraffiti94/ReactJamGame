@@ -3,13 +3,13 @@ import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
 import VictoryScreen from "./misc/victory"
-import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE} from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR} from '../assets/mapData';
 
 export default function Board() {
     const [gameState, setGameState] = useState({
-        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE], 
+        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR], 
         currentMapData: LEVEL_ZERO.mapData, 
-        mapClearCon: 2, 
+        mapClearCon: LEVEL_ZERO.mapClearCon, 
         clearConCounter: 0, 
         actorType: 'one', 
         playerOneIndex: LEVEL_ZERO.initialPlayerOneIndex, 
@@ -22,18 +22,23 @@ export default function Board() {
         resetState: 0, 
         gameWon: 0,
     });
+    const [actorSymbol, setActorSymbol] = useState("△");
     const [gridUpdateCounter, setGridUpdateCounter] = useState(0);
 
     function changeCharacter() {
-        if (gameState.actorType === "one")
+        if (gameState.actorType === "one") {
             gameState.actorType = "two";
-        else
+            setActorSymbol("⬠");
+        }
+        else {
             gameState.actorType = "one";
+            setActorSymbol("△");
+        }
     }
 
     function onUpArrowClick() {
         let index = gameState.actorType === "one" ? gameState.playerOneIndex : gameState.playerTwoIndex;
-        if (index > gameState.mapData[gameState.level].mapY * 2 - 1 && collisionChecker(index, -1 * gameState.mapData[gameState.level].mapX, gameState.actorType)) {
+        if (index > gameState.mapData[gameState.level].mapY - 1 && collisionChecker(index, (-1 * gameState.mapData[gameState.level].mapX), gameState.actorType)) {
             playerMovement(-1 * gameState.mapData[gameState.level].mapX, gameState.actorType);
         }
     }
@@ -69,6 +74,7 @@ export default function Board() {
         gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
         gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
         gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        gameState.mapClearCon = gameState.mapData[gameState.level].mapClearCon;
         setGameState(prevState => ({
             ...prevState,
             clearConCounter: prevState.mapClearCon
@@ -164,6 +170,10 @@ export default function Board() {
                 playerTwoIndex: prevState.playerTwoIndex + direction
             }))      
         }
+    }
+
+    function returnCharacterSymbol() {
+        return gameState.actorType === "one" ? "△" : "⬠";
     }
 
     useEffect(() => {
@@ -279,6 +289,7 @@ export default function Board() {
                 resetGame={resetGame}
                 nextLevel={nextLevel}
                 previousLevel={previousLevel}
+                actorType={actorSymbol}
             /> 
         </div>
         :

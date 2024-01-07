@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sprite } from '@pixi/react';
 
 function GameController(props) {
+    const [playerSymbol, setPlayerSymbol] = useState("△")
 
     return (
         <>
@@ -9,7 +10,10 @@ function GameController(props) {
                 <button onClick={props.upClick}>↑</button>
                 <div></div>
                 <button onClick={props.leftClick}>←</button>
-                <button onClick={props.changeCharacter}>Change Character</button>
+                {
+                    
+                }
+                <button onClick={props.changeCharacter}> <b>{props.actorType}</b> SOKOSWAP</button>
                 <button onClick={props.rightClick}>→</button>
                 <div></div>
                 <button onClick={props.downClick}>↓</button>
