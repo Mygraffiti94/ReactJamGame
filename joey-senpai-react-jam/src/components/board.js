@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
 import VictoryScreen from "./misc/victory"
-import { LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE} from '../assets/mapData';
+import { LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE, LEVEL_SIX} from '../assets/mapData';
 
 export default function Board() {
     const [gameState, setGameState] = useState({
-        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE], 
+        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE, LEVEL_SIX], 
         currentMapData: LEVEL_ZERO.mapData, 
         mapClearCon: LEVEL_ZERO.mapClearCon, 
         clearConCounter: 0, 
@@ -154,7 +154,13 @@ export default function Board() {
             gameState.currentMapData[index].type = "e_air";
             gameState.currentMapData[index+direction].type = "e_air";
             gameState.clearConCounter += 1;
-            if (gameState.clearConCounter >= gameState.mapClearCon) {
+            if (gameState.clearConCounter >= gameState.mapClearCon && gameState.level + 1 === gameState.mapData.length) {
+                setGameState(prevState => ({
+                    ...prevState,
+                    gameWon: 1,
+                }))
+            }
+            else if (gameState.clearConCounter >= gameState.mapClearCon) {
                 setGameState(prevState => ({
                     ...prevState,
                     level: prevState.level+1
@@ -253,6 +259,7 @@ export default function Board() {
 
         if (gameState.clearConCounter >= gameState.mapClearCon) {
             if (gameState.level === gameState.mapData.length) {
+                console.log("you won the game")
                 gameState.gameWon = 1;
             }
             else {
