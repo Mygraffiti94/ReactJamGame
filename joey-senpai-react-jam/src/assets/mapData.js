@@ -114,7 +114,7 @@ export const LEVEL_THREE = {
     mapClearCon: 2
 }
 
-export const LEVEL_FOUR = {
+export const LEVEL_FIVE = {
     mapData:
     [
         {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, {type: "e_wal"}, 
@@ -144,4 +144,28 @@ export const LEVEL_FOUR = {
     mapX: 10,
     mapY: 15,
     mapClearCon: 10
+}
+
+export const LEVEL_FOUR = {
+    mapData:
+        [{type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_org"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_ogl"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_air"}, {type:"e_wal"},
+         {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"}, {type:"e_wal"} ],
+    playerOneIndex: 40,
+    playerTwoIndex: 16,
+    initialPlayerOneIndex: 40,
+    initialPlayerTwoIndex: 16,
+    initialBlueBlocks: [],
+    initialOrangeBlocks: [31,39,41,49],
+    initialBlueDrop: [21],
+    initialOrangeDrop: [28],
+    mapX: 9,
+    mapY: 9,
+    mapClearCon: 4
 }

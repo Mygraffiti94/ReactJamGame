@@ -3,11 +3,11 @@ import React, { Component, useEffect, useState } from "react"
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
 import VictoryScreen from "./misc/victory"
-import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR} from '../assets/mapData';
+import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE} from '../assets/mapData';
 
 export default function Board() {
     const [gameState, setGameState] = useState({
-        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR], 
+        mapData: [LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE], 
         currentMapData: LEVEL_ZERO.mapData, 
         mapClearCon: LEVEL_ZERO.mapClearCon, 
         clearConCounter: 0, 
@@ -74,7 +74,8 @@ export default function Board() {
         gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
         gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
         gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
-        gameState.mapClearCon = gameState.mapData[gameState.level].mapClearCon;
+        gameState.playerOnePrevIndex = gameState.mapData[gameState.level].playerOneIndex;
+        gameState.playerTwoPrevIndex = gameState.mapData[gameState.level].playerTwoIndex;
         setGameState(prevState => ({
             ...prevState,
             clearConCounter: prevState.mapClearCon
@@ -93,6 +94,8 @@ export default function Board() {
         gameState.playerTwoIndex = gameState.mapData[gameState.level].playerTwoIndex;
         gameState.currentMapData[gameState.playerOneIndex] = {type: "e_one"};
         gameState.currentMapData[gameState.playerTwoIndex] = {type: "e_two"};
+        gameState.playerOnePrevIndex = gameState.mapData[gameState.level].playerOneIndex;
+        gameState.playerTwoPrevIndex = gameState.mapData[gameState.level].playerTwoIndex;
         setGameState(prevState => ({
             ...prevState,
             level: prevState.level,
