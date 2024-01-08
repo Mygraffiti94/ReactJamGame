@@ -1,8 +1,4 @@
-import { useState } from "react";
-import { Sprite } from '@pixi/react';
-
 function GameController(props) {
-    const [playerSymbol, setPlayerSymbol] = useState("△")
 
     return (
         <>

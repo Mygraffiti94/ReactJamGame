@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import GameController from "./controller/gameController"
 import GameGrid from "./gameGrid";
 import VictoryScreen from "./misc/victory"
-import { testLevel, LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE} from '../assets/mapData';
+import { LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE} from '../assets/mapData';
 
 export default function Board() {
     const [gameState, setGameState] = useState({
@@ -183,10 +183,6 @@ export default function Board() {
         }
     }
 
-    function returnCharacterSymbol() {
-        return gameState.actorType === "one" ? "△" : "⬠";
-    }
-
     useEffect(() => {
         let index = 0;
         let prevIndex = 0;
@@ -198,9 +194,9 @@ export default function Board() {
             for (let i= 0; i < gameState.currentMapData.length; i++) {
                 switch (gameState.currentMapData[i].type) {
                 case "e_blu":
-                    gameState.currentMapData[i].type = 'e_air'
+                    gameState.currentMapData[i].type = 'e_air';
                 case "e_org":
-                    gameState.currentMapData[i].type = 'e_air'
+                    gameState.currentMapData[i].type = 'e_air';
                 }
             }
             for (let i=0; i < gameState.mapData[gameState.level].initialBlueBlocks.length; i++) {

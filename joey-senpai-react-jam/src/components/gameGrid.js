@@ -18,7 +18,7 @@ function GameGrid(props) {
             
             <div className="center">
                 <div style={style}>
-                    {gridData.map((item, index) => {
+                    {gridData.map((item) => {
                         switch (item.type) {
                             case "e_wal":
                                 return <div className="wall"></div>;

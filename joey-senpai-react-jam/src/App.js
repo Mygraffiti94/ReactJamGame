@@ -1,6 +1,6 @@
 import './App.css';
 import Menu from './components/misc/menu';
-import React, { useState } from "react";
+import React from "react";
 
 function App() {
   return (
